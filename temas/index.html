@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escolha o tema do seu site — SeuCorretor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Playfair+Display:wght@600;700&family=Poppins:wght@500;600;700&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --chrome-bg:#0f172a;
+    --chrome-panel:#ffffff;
+    --chrome-border:#e2e8f0;
+    --chrome-accent:#2b4c7e;
+    --chrome-text:#0f172a;
+    --chrome-muted:#64748b;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:linear-gradient(180deg,#f7f8fb 0%, #eef1f6 100%);
+    color:var(--chrome-text);
+    min-height:100vh;
+    padding:32px 16px 56px;
+  }
+  .ad-wrap{max-width:1180px;margin:0 auto;}
+  .ad-header{text-align:center;margin-bottom:8px;}
+  .ad-eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--chrome-accent);font-weight:600;
+  }
+  .ad-title{
+    font-family:'Sora',sans-serif;
+    font-size:clamp(24px,4vw,38px);
+    font-weight:700;
+    margin:10px 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .ad-sub{
+    color:var(--chrome-muted);
+    font-size:15px;
+    max-width:520px;
+    margin:0 auto 28px;
+    line-height:1.5;
+  }
+
+  .demo-shell{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    gap:20px;
+    align-items:start;
+  }
+  @media (max-width:860px){
+    .demo-shell{grid-template-columns:1fr;}
+  }
+
+  /* ---------- PAINEL (dashboard chrome — sempre igual, não muda com o tema) ---------- */
+  .panel{
+    background:var(--chrome-panel);
+    border:1px solid var(--chrome-border);
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 1px 2px rgba(15,23,42,.04), 0 8px 24px -12px rgba(15,23,42,.12);
+    position:sticky;
+    top:20px;
+  }
+  .panel h2{
+    font-family:'Sora',sans-serif;
+    font-size:16px;
+    margin:0 0 2px;
+  }
+  .panel .panel-sub{
+    font-size:12.5px;
+    color:var(--chrome-muted);
+    margin:0 0 18px;
+  }
+  .panel-section{margin-bottom:18px;}
+  .panel-label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--chrome-muted);
+    display:block;
+    margin-bottom:9px;
+  }
+  .swatch-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+  .swatch{
+    border:1.5px solid var(--chrome-border);
+    border-radius:11px;
+    background:#fff;
+    padding:8px 8px 7px;
+    cursor:pointer;
+    text-align:left;
+    transition:border-color .15s ease, transform .1s ease, box-shadow .15s ease;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .swatch:hover{transform:translateY(-1px); box-shadow:0 4px 10px -4px rgba(15,23,42,.18);}
+  .swatch.active{
+    border-color:var(--chrome-accent);
+    box-shadow:0 0 0 3px rgba(43,76,126,.14);
+  }
+  .swatch-chip{
+    height:26px;
+    border-radius:7px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 8px;
+    overflow:hidden;
+  }
+  .swatch-chip .aa{font-size:12px;font-weight:700;}
+  .swatch-chip .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .swatch-name{font-size:11.5px;font-weight:600;color:#1e293b;}
+
+  .layout-toggle{display:flex;gap:6px;}
+  .layout-btn{
+    flex:1;
+    border:1.5px solid var(--chrome-border);
+    background:#fff;
+    border-radius:9px;
+    padding:9px 4px 8px;
+    font-size:11px;
+    font-weight:600;
+    color:#334155;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    transition:border-color .15s ease;
+  }
+  .layout-btn:hover{border-color:#94a3b8;}
+  .layout-btn.active{
+    border-color:var(--chrome-accent);
+    background:#eef2ff;
+    color:var(--chrome-accent);
+  }
+  .layout-icon{width:34px;height:22px;border:1.5px solid currentColor;border-radius:3px;position:relative;opacity:.75;}
+  .layout-icon i{position:absolute;background:currentColor;border-radius:1px;}
+  .li-classico .a{top:3px;left:3px;width:14px;height:4px;}
+  .li-classico .b{top:9px;left:3px;width:10px;height:3px;}
+  .li-classico .c{top:3px;right:3px;width:9px;height:14px;}
+  .li-moderno i{top:0;left:0;right:0;bottom:0;opacity:.35;}
+  .li-moderno .a{position:absolute;top:8px;left:5px;width:20px;height:5px;background:currentColor;opacity:1;}
+  .li-minimal .a{top:9px;left:6px;width:20px;height:2px;}
+  .li-minimal .b{top:14px;left:6px;width:12px;height:2px;}
+
+  .save-btn{
+    width:100%;
+    margin-top:4px;
+    background:var(--chrome-accent);
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    padding:11px;
+    font-size:13.5px;
+    font-weight:600;
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  .save-btn:hover{filter:brightness(1.08);}
+  .save-toast{
+    text-align:center;
+    font-size:11.5px;
+    color:#0f5132;
+    margin-top:8px;
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  .save-toast.show{opacity:1;}
+
+  /* ---------- BROWSER MOCKUP ---------- */
+  .browser-mock{
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 1px 2px rgba(15,23,42,.04), 0 20px 44px -20px rgba(15,23,42,.28);
+    border:1px solid var(--chrome-border);
+    background:#fff;
+  }
+  .browser-chrome{
+    background:#e7eaf0;
+    padding:10px 14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .dots{display:flex;gap:6px;flex-shrink:0;}
+  .dots span{width:9px;height:9px;border-radius:50%;display:block;}
+  .dots span:nth-child(1){background:#f97066;}
+  .dots span:nth-child(2){background:#f7bd52;}
+  .dots span:nth-child(3){background:#3fbb63;}
+  .address-bar{
+    flex:1;
+    background:#fff;
+    border-radius:7px;
+    padding:5px 12px;
+    font-size:12px;
+    color:#475569;
+    font-family:'JetBrains Mono',monospace;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  /* ---------- PREVIEW (área que muda com o tema) ---------- */
+  #preview{
+    --bg:#ffffff; --surface:#f3f6fb; --primary:#1c3f6e; --accent:#f2b134;
+    --text:#1a2433; --muted:#5b6b82; --radius:14px;
+    --font-head:'Sora',sans-serif; --font-body:'Inter',sans-serif; --font-label:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    transition:background .25s ease, color .25s ease;
+  }
+  #preview .site-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 24px;
+    border-bottom:1px solid rgba(0,0,0,.06);
+  }
+  #preview .site-logo{font-family:var(--font-head);font-weight:700;font-size:17px;}
+  #preview .site-nav{display:flex;gap:18px;font-size:12.5px;color:var(--muted);}
+  #preview .site-nav span:last-child{
+    background:var(--primary);color:var(--bg);
+    padding:6px 13px;border-radius:calc(var(--radius) * 0.6);
+    font-weight:600;color:#fff;
+  }
+
+  #preview .hero{padding:44px 24px 36px;position:relative;}
+  #preview .hero-eyebrow{
+    font-family:var(--font-label);
+    font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:10px;display:inline-block;
+  }
+  #preview .hero-title{
+    font-family:var(--font-head);
+    font-size:clamp(22px,3vw,32px);
+    line-height:1.15;
+    font-weight:700;
+    margin:0 0 12px;
+    max-width:480px;
+  }
+  #preview .hero-desc{font-size:13.5px;color:var(--muted);max-width:420px;margin:0 0 20px;line-height:1.55;}
+  #preview .hero-cta{
+    display:inline-flex;gap:10px;
+  }
+  #preview .btn-primary{
+    background:var(--primary);color:#fff;border:none;
+    padding:11px 18px;border-radius:var(--radius);font-weight:600;font-size:13px;font-family:var(--font-body);
+  }
+  #preview .btn-ghost{
+    background:transparent;color:var(--text);border:1.5px solid rgba(0,0,0,.14);
+    padding:11px 18px;border-radius:var(--radius);font-weight:600;font-size:13px;font-family:var(--font-body);
+  }
+
+  #preview .cards{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+    padding:0 24px 32px;
+  }
+  @media (max-width:640px){#preview .cards{grid-template-columns:1fr;}}
+  #preview .card{
+    background:var(--surface);
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid rgba(0,0,0,.05);
+  }
+  #preview .card img{width:100%;height:110px;object-fit:cover;display:block;}
+  #preview .card-body{padding:12px 13px 14px;}
+  #preview .card-price{
+    font-family:var(--font-label);
+    font-weight:700;font-size:14px;color:var(--primary);margin-bottom:3px;
+  }
+  #preview .card-addr{font-size:11.5px;color:var(--muted);margin-bottom:7px;}
+  #preview .card-specs{font-size:10.5px;color:var(--muted);display:flex;gap:8px;}
+
+  /* ---- variações de LAYOUT ---- */
+  #preview[data-layout="classico"] .hero{display:flex;align-items:center;gap:28px;}
+  #preview[data-layout="classico"] .hero-text{flex:1;}
+  #preview[data-layout="classico"] .hero-visual{
+    flex:0 0 40%;height:150px;border-radius:var(--radius);
+    background-size:cover;background-position:center;
+  }
+  #preview[data-layout="classico"] .card-body{border-top:none;}
+
+  #preview[data-layout="moderno"] .hero{
+    padding:0;height:260px;display:flex;align-items:flex-end;
+    background-size:cover;background-position:center;
+    position:relative;
+  }
+  #preview[data-layout="moderno"] .hero::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(0deg, rgba(0,0,0,.72) 10%, rgba(0,0,0,.15) 70%);
+  }
+  #preview[data-layout="moderno"] .hero-text{position:relative;z-index:1;padding:24px;color:#fff;}
+  #preview[data-layout="moderno"] .hero-title{color:#fff;}
+  #preview[data-layout="moderno"] .hero-desc{color:rgba(255,255,255,.82);}
+  #preview[data-layout="moderno"] .hero-visual{display:none;}
+  #preview[data-layout="moderno"] .card{border-radius:4px;border:none;position:relative;}
+  #preview[data-layout="moderno"] .card-price{
+    position:absolute;top:8px;left:8px;background:rgba(0,0,0,.65);color:#fff;
+    padding:3px 8px;border-radius:3px;font-size:12px;
+  }
+  #preview[data-layout="moderno"] .card img{height:130px;}
+
+  #preview[data-layout="minimalista"] .hero{padding:52px 24px 30px;text-align:center;border-bottom:1px solid rgba(0,0,0,.06);}
+  #preview[data-layout="minimalista"] .hero-title{max-width:100%;margin-left:auto;margin-right:auto;}
+  #preview[data-layout="minimalista"] .hero-desc{max-width:380px;margin-left:auto;margin-right:auto;}
+  #preview[data-layout="minimalista"] .hero-cta{justify-content:center;width:100%;}
+  #preview[data-layout="minimalista"] .hero-visual{display:none;}
+  #preview[data-layout="minimalista"] .btn-ghost{display:none;}
+  #preview[data-layout="minimalista"] .card{background:transparent;border:none;border-top:2px solid var(--text);border-radius:0;}
+  #preview[data-layout="minimalista"] .card img{display:none;}
+  #preview[data-layout="minimalista"] .card-body{padding:14px 2px;}
+
+  .ad-caption{
+    text-align:center;margin-top:22px;font-size:13px;color:var(--chrome-muted);
+  }
+  .ad-caption b{color:#1e293b;}
+</style>
+</head>
+<body>
+<div class="ad-wrap">
+
+  <div class="ad-header">
+    <span class="ad-eyebrow">Painel do corretor · pré-visualização ao vivo</span>
+    <h1 class="ad-title">Um clique muda a cara do seu site inteiro</h1>
+    <p class="ad-sub">Escolha a paleta e o estilo de layout, veja o resultado na hora. São mais de 50 combinações — sem precisar de designer nem programação.</p>
+  </div>
+
+  <div class="demo-shell">
+    <aside class="panel">
+      <h2>Personalizar site</h2>
+      <p class="panel-sub">anajulia.seucorretor.com.br</p>
+
+      <div class="panel-section">
+        <span class="panel-label">Paleta de cores</span>
+        <div class="swatch-grid" id="swatchGrid"></div>
+      </div>
+
+      <div class="panel-section">
+        <span class="panel-label">Estilo de layout</span>
+        <div class="layout-toggle" id="layoutToggle">
+          <button class="layout-btn active" data-layout="classico">
+            <span class="layout-icon li-classico"><i class="a"></i><i class="b"></i><i class="c"></i></span>
+            Clássico
+          </button>
+          <button class="layout-btn" data-layout="moderno">
+            <span class="layout-icon li-moderno"><i class="a"></i></span>
+            Moderno
+          </button>
+          <button class="layout-btn" data-layout="minimalista">
+            <span class="layout-icon li-minimal"><i class="a"></i><i class="b"></i></span>
+            Mínimo
+          </button>
+        </div>
+      </div>
+
+      <button class="save-btn" id="saveBtn">Salvar alterações</button>
+      <p class="save-toast" id="saveToast">✓ Site atualizado</p>
+    </aside>
+
+    <main class="browser-mock">
+      <div class="browser-chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="address-bar" id="addrBar">🔒 anajulia.seucorretor.com.br</div>
+      </div>
+
+      <div id="preview" data-layout="classico">
+        <div class="site-header">
+          <div class="site-logo">Ana Julia Imóveis</div>
+          <div class="site-nav"><span>Imóveis</span><span>Sobre</span><span>Fale comigo</span></div>
+        </div>
+
+        <div class="hero">
+          <div class="hero-text">
+            <span class="hero-eyebrow">São Paulo · SP</span>
+            <h1 class="hero-title">Encontre o imóvel dos seus sonhos com quem conhece a cidade</h1>
+            <p class="hero-desc">Atendimento próximo, fotos reais e o imóvel certo pra sua próxima fase. Fale agora pelo WhatsApp.</p>
+            <div class="hero-cta">
+              <button class="btn-primary">Ver imóveis</button>
+              <button class="btn-ghost">Falar no WhatsApp</button>
+            </div>
+          </div>
+          <div class="hero-visual" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=70')"></div>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=500&q=70">
+            <div class="card-body">
+              <div class="card-price">R$ 890.000</div>
+              <div class="card-addr">Jardim Europa · Casa moderna com piscina</div>
+              <div class="card-specs"><span>3 quartos</span><span>220 m²</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&q=70">
+            <div class="card-body">
+              <div class="card-price">R$ 410.000</div>
+              <div class="card-addr">Centro · Apartamento 2 quartos, varanda</div>
+              <div class="card-specs"><span>2 quartos</span><span>68 m²</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=500&q=70">
+            <div class="card-body">
+              <div class="card-price">R$ 1.250.000</div>
+              <div class="card-addr">Vila Nova · Cobertura duplex, vista panorâmica</div>
+              <div class="card-specs"><span>4 quartos</span><span>310 m²</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <p class="ad-caption"><b>SeuCorretor</b> — seu site profissional de imóveis, pronto em minutos.</p>
+</div>
+
+<script>
+const themes = [
+  {id:'azul',    name:'Azul Profissional', bg:'#ffffff', surface:'#f3f6fb', primary:'#1c3f6e', accent:'#f2b134', text:'#1a2433', muted:'#5b6b82', radius:'14px', head:"'Sora',sans-serif", label:"'Inter',sans-serif"},
+  {id:'esmeralda',name:'Verde Esmeralda',  bg:'#fbfdfa', surface:'#eef6ef', primary:'#0f5132', accent:'#c9a227', text:'#122019', muted:'#4d6357', radius:'10px', head:"'Fraunces',serif", label:"'Inter',sans-serif"},
+  {id:'luxo',    name:'Preto & Dourado',   bg:'#141414', surface:'#1f1f1f', primary:'#e7c46a', accent:'#e7c46a', text:'#f5f1e6', muted:'#b8b0a0', radius:'2px',  head:"'Playfair Display',serif", label:"'JetBrains Mono',monospace", dark:true},
+  {id:'coral',   name:'Coral & Petróleo',  bg:'#fffaf8', surface:'#ffece7', primary:'#e05a4d', accent:'#12817a', text:'#241512', muted:'#7a5c56', radius:'20px', head:"'Poppins',sans-serif", label:"'Inter',sans-serif"},
+  {id:'mono',    name:'Editorial Mono',    bg:'#ffffff', surface:'#fafafa', primary:'#111111', accent:'#c9932b', text:'#111111', muted:'#666666', radius:'0px',  head:"'Space Grotesk',sans-serif", label:"'JetBrains Mono',monospace"},
+  {id:'vinho',   name:'Vinho & Creme',     bg:'#f8f1ea', surface:'#f0e0d6', primary:'#7a2048', accent:'#c98298', text:'#2b1015', muted:'#7a5a60', radius:'12px', head:"'DM Serif Display',serif", label:"'Inter',sans-serif"},
+  {id:'noturno', name:'Petróleo Noturno',  bg:'#0b2027', surface:'#123039', primary:'#5eead4', accent:'#5eead4', text:'#eaf6f6', muted:'#9fc4c4', radius:'12px', head:"'Sora',sans-serif", label:"'JetBrains Mono',monospace", dark:true},
+  {id:'terroso', name:'Terroso & Sálvia',  bg:'#f7f5ee', surface:'#eef0e2', primary:'#5f7052', accent:'#b5482a', text:'#26291f', muted:'#68705c', radius:'8px',  head:"'Fraunces',serif", label:"'Inter',sans-serif"},
+];
+
+const grid = document.getElementById('swatchGrid');
+themes.forEach((t, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'swatch' + (i === 0 ? ' active' : '');
+  btn.dataset.theme = t.id;
+  btn.innerHTML = `
+    <span class="swatch-chip" style="background:${t.primary}">
+      <span class="aa" style="font-family:${t.head}; color:${t.dark ? '#111' : '#fff'}">Aa</span>
+      <span class="dot" style="background:${t.accent}"></span>
+    </span>
+    <span class="swatch-name">${t.name}</span>
+  `;
+  btn.addEventListener('click', () => applyTheme(t, btn));
+  grid.appendChild(btn);
+});
+
+function applyTheme(t, btn){
+  const p = document.getElementById('preview');
+  p.style.setProperty('--bg', t.bg);
+  p.style.setProperty('--surface', t.surface);
+  p.style.setProperty('--primary', t.primary);
+  p.style.setProperty('--accent', t.accent);
+  p.style.setProperty('--text', t.text);
+  p.style.setProperty('--muted', t.muted);
+  p.style.setProperty('--radius', t.radius);
+  p.style.setProperty('--font-head', t.head);
+  p.style.setProperty('--font-label', t.label);
+  document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+document.querySelectorAll('.layout-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.getElementById('preview').dataset.layout = btn.dataset.layout;
+    document.querySelectorAll('.layout-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const toast = document.getElementById('saveToast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 1800);
+});
+</script>
+</body>
+</html>
